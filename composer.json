@@ -1,0 +1,46 @@
+{
+  "name": "blumilksoftware/openapi-toolbox",
+  "description": "OpenAPI handy toolbox for Laravel applications.",
+  "keywords": [
+    "laravel",
+    "openapi",
+    "elements",
+    "swagger"
+  ],
+  "homepage": "https://github.com/blumilksoftware/openapi-toolbox",
+  "license": "MIT",
+  "require": {
+    "php": "^8.1",
+    "illuminate/support": "^10.0"
+  },
+  "require-dev": {
+    "blumilksoftware/codestyle": "^2.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "Blumilk\\OpenApiToolbox\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Blumilk\\OpenApiToolbox\\Tests\\": "tests/"
+    }
+  },
+  "scripts": {
+    "cs": "./vendor/bin/php-cs-fixer fix --dry-run --diff --config codestyle.php",
+    "csf": "./vendor/bin/php-cs-fixer fix --diff --config codestyle.php",
+    "test": "./vendor/bin/phpunit tests --colors always"
+  },
+  "config": {
+    "sort-packages": true
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Blumilk\\OpenApiToolbox\\OpenApiToolboxServiceProvider"
+      ]
+    }
+  },
+  "minimum-stability": "stable",
+  "prefer-stable": true
+}
