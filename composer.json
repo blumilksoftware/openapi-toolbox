@@ -11,12 +11,14 @@
   "license": "MIT",
   "require": {
     "php": "^8.1",
+    "illuminate/config": "^10.11",
     "illuminate/support": "^10.11",
     "kirschbaum-development/laravel-openapi-validator": "^0.3.0",
     "krzysztofrewak/openapi-merge": "^2.0"
   },
   "require-dev": {
-    "blumilksoftware/codestyle": "^2.2"
+    "blumilksoftware/codestyle": "^2.2",
+    "phpunit/phpunit": "^10.1"
   },
   "autoload": {
     "psr-4": {
