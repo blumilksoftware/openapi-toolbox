@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Blumilk\OpenApiToolbox\OpenApiCompatibility\DocumentationBuilders;
 
+use Blumilk\OpenApiToolbox\Config\ConfigHelper;
 use Illuminate\Contracts\Config\Repository;
 use KrzysztofRewak\OpenApiMerge\FileHandling\File;
 use KrzysztofRewak\OpenApiMerge\OpenApiMerge;
@@ -15,6 +16,7 @@ class MultipleFilesDocumentationBuilder implements DocumentationBuilder
 {
     public function __construct(
         protected Repository $config,
+        protected ConfigHelper $configHelper,
     ) {}
 
     /**
@@ -22,9 +24,11 @@ class MultipleFilesDocumentationBuilder implements DocumentationBuilder
      */
     public function build(): string
     {
+        $index = $this->configHelper->getIndex();
+
         $merger = new OpenApiMerge(new FileReader());
         $mergedResult = $merger->mergeFiles(
-            new File($this->config->get("openapi_toolbox.index")),
+            new File($index),
             ...array_map(
                 static fn(string $file): File => new File($file),
                 glob($this->getDocumentationFilesPathPattern()),
@@ -38,6 +42,6 @@ class MultipleFilesDocumentationBuilder implements DocumentationBuilder
 
     protected function getDocumentationFilesPathPattern(): string
     {
-        return $this->config->get("openapi_toolbox.path") . "/*." . $this->config->get("openapi_toolbox.format");
+        return $this->configHelper->getPath("*." . $this->config->get("openapi_toolbox.format")->value);
     }
 }

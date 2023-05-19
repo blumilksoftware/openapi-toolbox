@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace Blumilk\OpenApiToolbox\OpenApiCompatibility\DocumentationBuilders;
 
-use Illuminate\Contracts\Config\Repository;
+use Blumilk\OpenApiToolbox\Config\ConfigHelper;
 
 class SingleFileDocumentationBuilder implements DocumentationBuilder
 {
     public function __construct(
-        protected Repository $config,
+        protected ConfigHelper $configHelper,
     ) {}
 
     public function build(): string
     {
-        return file_get_contents($this->config->get("openapi_toolbox.index"));
+        return file_get_contents($this->configHelper->getIndex());
     }
 }
