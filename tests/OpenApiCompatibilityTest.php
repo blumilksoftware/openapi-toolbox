@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Blumilk\OpenApiToolbox\Tests;
 
+use Blumilk\OpenApiToolbox\Config\ConfigHelper;
+use Blumilk\OpenApiToolbox\Config\Format;
 use Blumilk\OpenApiToolbox\OpenApiCompatibility\DocumentationBuilders\MultipleFilesDocumentationBuilder;
 use Blumilk\OpenApiToolbox\OpenApiCompatibility\DocumentationBuilders\SingleFileDocumentationBuilder;
 use Illuminate\Config\Repository;
@@ -16,9 +18,11 @@ class OpenApiCompatibilityTest extends TestCase
     public function testSingleFileDocumentationBuild(): void
     {
         $config = new Repository();
-        $config->set("openapi_toolbox.index", realpath(__DIR__ . "/mocks/singleFileDocumentation/openapi.yml"));
+        $config->set("openapi_toolbox.directory.index", "openapi.yml");
+        $config->set("openapi_toolbox.directory.path", realpath(__DIR__ . "/mocks/singleFileDocumentation"));
+        $config->set("openapi_toolbox.format", Format::Yml);
 
-        $builder = new SingleFileDocumentationBuilder($config);
+        $builder = new SingleFileDocumentationBuilder(new ConfigHelper($config));
         $result = $builder->build();
 
         Assert::assertStringContainsString("API Documentation", $result);
@@ -30,10 +34,11 @@ class OpenApiCompatibilityTest extends TestCase
     public function testMultipleFilesDocumentationBuild(): void
     {
         $config = new Repository();
-        $config->set("openapi_toolbox.index", realpath(__DIR__ . "/mocks/multipleFilesDocumentation/openapi.yml"));
-        $config->set("openapi_toolbox.path", realpath(__DIR__ . "/mocks/multipleFilesDocumentation"));
+        $config->set("openapi_toolbox.directory.index", "openapi.yml");
+        $config->set("openapi_toolbox.directory.path", realpath(__DIR__ . "/mocks/multipleFilesDocumentation"));
+        $config->set("openapi_toolbox.format", Format::Yml);
 
-        $builder = new MultipleFilesDocumentationBuilder($config);
+        $builder = new MultipleFilesDocumentationBuilder($config, new ConfigHelper($config));
         $result = $builder->build();
 
         Assert::assertStringContainsString("API Documentation", $result);
