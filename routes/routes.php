@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Blumilk\OpenApiToolbox\DocumentationUI\Controllers\DocumentationUIController;
+use Blumilk\OpenApiToolbox\DocumentationUI\Http\DocumentationUIController;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Routing\Registrar;
 

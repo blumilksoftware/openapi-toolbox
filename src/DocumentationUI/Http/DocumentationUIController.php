@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Blumilk\OpenApiToolbox\DocumentationUI\Controllers;
+namespace Blumilk\OpenApiToolbox\DocumentationUI\Http;
 
 use Blumilk\OpenApiToolbox\Config\Format;
 use Illuminate\Contracts\Config\Repository;
@@ -21,14 +21,14 @@ class DocumentationUIController
             parameters: $config->get("openapi_toolbox.directory.index"),
         );
 
-        return $view->make("openapi_toolbox:elements")
+        return $view->make("openapi_toolbox::elements")
             ->with("title", $config->get("openapi_toolbox.ui.title"))
             ->with("route", $route);
     }
 
     public function file(Repository $config, string $filePath): JsonResponse
     {
-        $filePath = $config->get("openapi_toolbox.documentation_files_directory.path") . "/" . $filePath;
+        $filePath = $config->get("openapi_toolbox.directory.path") . "/" . $filePath;
         $content = file_get_contents($filePath);
 
         /** @var Format $format */
