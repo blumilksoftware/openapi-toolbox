@@ -16,6 +16,7 @@ return [
         "name" => "documentation",
     ],
     "ui" => [
+        "enabled" => false,
         "title" => "Documentation",
     ],
 ];

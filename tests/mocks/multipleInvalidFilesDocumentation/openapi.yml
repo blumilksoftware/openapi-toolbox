@@ -1,0 +1,18 @@
+openapi: 3.1.0
+info:
+  title: application
+  version: 0.0.1
+  description: "API Documentation"
+  contact:
+    name: Blumilk development team
+    email: office@blumilk.pl
+    url: blumilk.pl
+servers:
+  - url: https://application-backend.blumilk.localhost/api/
+    description: Development server
+tags:
+  - name: Info
+    description: Routes accessible for all users
+paths:
+  "/ping":
+    "$ref": ping.yml

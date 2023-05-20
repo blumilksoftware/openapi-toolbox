@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Blumilk\OpenApiToolbox\OpenApiCompatibility\DocumentationBuilders;
+namespace Blumilk\OpenApiToolbox\OpenApiSpecification\DocumentationBuilders;
 
 interface DocumentationBuilder
 {
