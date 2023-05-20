@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Blumilk\OpenApiToolbox\OpenApiCompatibility\DocumentationBuilders;
+namespace Blumilk\OpenApiToolbox\OpenApiSpecification\DocumentationBuilders;
 
 use Blumilk\OpenApiToolbox\Config\ConfigHelper;
 use Illuminate\Contracts\Config\Repository;
@@ -14,10 +14,13 @@ use KrzysztofRewak\OpenApiMerge\Writer\Exception\InvalidFileTypeException;
 
 class MultipleFilesDocumentationBuilder implements DocumentationBuilder
 {
+    protected ConfigHelper $configHelper;
+
     public function __construct(
         protected Repository $config,
-        protected ConfigHelper $configHelper,
-    ) {}
+    ) {
+        $this->configHelper = new ConfigHelper($this->config);
+    }
 
     /**
      * @throws InvalidFileTypeException

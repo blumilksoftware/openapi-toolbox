@@ -1,0 +1,19 @@
+get:
+  tags:
+    - Info
+  summary: Ping endpoint
+  responses:
+    '2ication/json:
+       
+       schema:
+         type: object
+         properties:
+           status:
+type: boolean
+example: true
+get:
+  tags:
+    - Info
+  summary: Ping endpoint
+  responses:
+    '2ication/json:
