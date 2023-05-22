@@ -49,6 +49,10 @@ With configuration `openapi_toolbox.ui.enabled = true` a documentation UI will b
 
 By default, it should be available under `GET /documentation`.
 
+#### OpenAPI documentation endpoint
+
+Serving a documentation itself can be tricky, especially if specification is built from multiple nested files. Here OpenAPI specification files will be built accordingly to configuration and by default the result should be available under `GET /documentation/raw`.
+
 #### OpenAPI specification validation
 
 OpenAPI specification files will be built accordingly to configuration and validated on demand by running an Artisan command:
