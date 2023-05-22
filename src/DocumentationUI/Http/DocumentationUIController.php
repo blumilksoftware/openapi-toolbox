@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Blumilk\OpenApiToolbox\DocumentationUI\Http;
 
 use Blumilk\OpenApiToolbox\Config\Format;
+use Blumilk\OpenApiToolbox\DocumentationUI\UIProvider;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Routing\UrlGenerator as UrlGeneratorContract;
 use Illuminate\Contracts\View\Factory;
@@ -21,7 +22,12 @@ class DocumentationUIController
             parameters: $config->get("openapi_toolbox.specification.index"),
         );
 
-        return $view->make("openapi_toolbox::elements")
+        $template = match($config->get("openapi_toolbox.ui.provider")) {
+            UIProvider::Swagger => "swagger",
+            default => "elements",
+        };
+
+        return $view->make("openapi_toolbox::$template")
             ->with("title", $config->get("openapi_toolbox.ui.title"))
             ->with("route", $route);
     }

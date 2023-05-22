@@ -17,11 +17,11 @@ if ($config->get("openapi_toolbox.ui.enabled")) {
     $middlewares = $config->get("openapi_toolbox.ui.routing.middlewares", default: []);
 
     $router->get("/$prefix/{filePath}", [DocumentationUIController::class, "file"])
-        ->middlewares($middlewares)
+        ->middleware($middlewares)
         ->where("filePath", ".*")
         ->name("$name.file");
 
     $router->get("/$prefix", [DocumentationUIController::class, "index"])
-        ->middlewares($middlewares)
+        ->middleware($middlewares)
         ->name("$name");
 }
