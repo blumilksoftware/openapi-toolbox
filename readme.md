@@ -18,11 +18,11 @@ composer require blumilksoftware/openapi-toolbox --dev
 
 ### Configuration
 
-Configuration file should be published into your application after `vendor:publish` command. It should look like below:
+Configuration file should be published into your application after running `vendor:publish` command. It should look like below:
 
 ```php
 return [
-    "format" => \Blumilk\OpenApiToolbox\Config\Format::Yml,
+    "format" => Format::Yml,
     "specification" => [
         "path" => resource_path("openapi"),
         "index" => "openapi.yml",
@@ -30,7 +30,7 @@ return [
     ],
     "ui" => [
         "enabled" => false,
-        "provider" => \Blumilk\OpenApiToolbox\DocumentationUI\UIProvider::Elements,
+        "provider" => UIProvider::Elements,
         "title" => "Documentation",
         "routing" => [
             "prefix" => "documentation",

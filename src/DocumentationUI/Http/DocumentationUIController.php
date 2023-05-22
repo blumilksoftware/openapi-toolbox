@@ -65,7 +65,7 @@ class DocumentationUIController
         return match (true) {
             $format->isYml() => new Response($content, headers: ["Content-Type" => "application/x-yaml"]),
             $format === Format::YmlToJson => new JsonResponse(Yaml::parse($content)),
-            default => new JsonResponse($content),
+            default => new JsonResponse(json_decode($content, associative: true)),
         };
     }
 }

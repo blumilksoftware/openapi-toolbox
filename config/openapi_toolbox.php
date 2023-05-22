@@ -6,15 +6,6 @@ use Blumilk\OpenApiToolbox\Config\Format;
 use Blumilk\OpenApiToolbox\DocumentationUI\UIProvider;
 
 return [
-    /*
-    |--------------------------------------------------------------------------
-    | Format
-    |--------------------------------------------------------------------------
-    |
-    | This option controls format of OpenApi specification. Case of enum
-    | \Blumilk\OpenApiToolbox\Config\Format should be used here.
-    |
-    */
     "format" => Format::YmlToJson,
     "specification" => [
         "path" => resource_path("openapi"),
