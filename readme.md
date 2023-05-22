@@ -4,8 +4,16 @@ OpenAPI Toolbox is a handy package with all important documentation-related feat
 
 ### Installation
 
+Install package via Composer:
+
 ```
 composer require blumilksoftware/openapi-toolbox
+```
+
+If you need it only for internal development (no documentation serving) you can install it with a development flag:
+
+```
+composer require blumilksoftware/openapi-toolbox --dev
 ```
 
 ### Configuration
@@ -14,18 +22,20 @@ Configuration file should be published into your application after `vendor:publi
 
 ```php
 return [
-    "directory" => [
+    "format" => \Blumilk\OpenApiToolbox\Config\Format::Yml,
+    "specification" => [
         "path" => resource_path("openapi"),
         "index" => "openapi.yml",
         "allow_multiple_files" => false,
     ],
-    "format" => Format::Yml,
-    "routing" => [
-        "prefix" => "documentation",
-        "name" => "documentation",
-    ],
     "ui" => [
+        "enabled" => false,
         "title" => "Documentation",
+        "routing" => [
+            "prefix" => "documentation",
+            "name" => "documentation",
+            "middlewares" => [],
+        ],
     ],
 ];
 ```
@@ -33,12 +43,15 @@ return [
 ### Features
 
 #### OpenAPI documentation UI
+
 With configuration `openapi_toolbox.ui.enabled = true` a documentation UI will be built from configurable path and served on configurable route. Currently, the [Stoplight Elements](https://stoplight.io/open-source/elements) is only available UI base component.
 
-By default, it should be available under `GET /documentation`
+By default, it should be available under `GET /documentation`.
 
 #### OpenAPI specification validation
+
 OpenAPI specification files will be built accordingly to configuration and validated on demand by running an Artisan command:
+
 ```
 php artisan openapi:validate
 ```
@@ -46,7 +59,9 @@ php artisan openapi:validate
 Good example of usage would be adding this command to CI pipeline for opened pull requests.
 
 #### Testing requests and responses against OpenAPI specification
+
 Based on [kirschbaum-development/laravel-openapi-validator](https://github.com/kirschbaum-development/laravel-openapi-validator), special trait added to selected PHPUnit test cases enables validation against application's OpenAPI specification:
+
 ```
 use \Blumilk\OpenApiToolbox\OpenApiCompatibility\OpenApiCompatibility;
 ```
