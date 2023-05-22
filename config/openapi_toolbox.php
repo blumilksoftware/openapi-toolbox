@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Blumilk\OpenApiToolbox\Config\Format;
+use Blumilk\OpenApiToolbox\DocumentationUI\UIProvider;
 
 return [
     "format" => Format::Yml,
@@ -13,6 +14,7 @@ return [
     ],
     "ui" => [
         "enabled" => false,
+        "provider" => UIProvider::Elements,
         "title" => "Documentation",
         "routing" => [
             "prefix" => "documentation",

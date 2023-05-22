@@ -30,6 +30,7 @@ return [
     ],
     "ui" => [
         "enabled" => false,
+        "provider" => \Blumilk\OpenApiToolbox\DocumentationUI\UIProvider::Elements,
         "title" => "Documentation",
         "routing" => [
             "prefix" => "documentation",
@@ -44,7 +45,7 @@ return [
 
 #### OpenAPI documentation UI
 
-With configuration `openapi_toolbox.ui.enabled = true` a documentation UI will be built from configurable path and served on configurable route. Currently, the [Stoplight Elements](https://stoplight.io/open-source/elements) is only available UI base component.
+With configuration `openapi_toolbox.ui.enabled = true` a documentation UI will be built from configurable path and served on configurable route. Currently, the [Stoplight Elements](https://stoplight.io/open-source/elements) and [Swagger UI](https://swagger.io/tools/swagger-ui/) are only available UI base components configurable by `openapi_toolbox.ui.provider` setting.
 
 By default, it should be available under `GET /documentation`.
 
