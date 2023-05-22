@@ -22,7 +22,7 @@ class DocumentationUIController
             parameters: $config->get("openapi_toolbox.specification.index"),
         );
 
-        $template = match($config->get("openapi_toolbox.ui.routing.name")) {
+        $template = match($config->get("openapi_toolbox.ui.provider")) {
             UIProvider::Swagger => "swagger",
             default => "elements",
         };
