@@ -17,9 +17,9 @@ class OpenApiValidationTest extends TestCase
     public function testMultipleFilesDocumentationValidation(): void
     {
         $config = new Repository();
-        $config->set("openapi_toolbox.directory.index", "openapi.yml");
-        $config->set("openapi_toolbox.directory.path", realpath(__DIR__ . "/mocks/multipleFilesDocumentation"));
-        $config->set("openapi_toolbox.directory.allow_multiple_files", true);
+        $config->set("openapi_toolbox.specification.index", "openapi.yml");
+        $config->set("openapi_toolbox.specification.path", realpath(__DIR__ . "/mocks/multipleFilesDocumentation"));
+        $config->set("openapi_toolbox.specification.allow_multiple_files", true);
         $config->set("openapi_toolbox.format", Format::Yml);
 
         $builder = new SpecificationBuilder($config);
@@ -38,9 +38,9 @@ class OpenApiValidationTest extends TestCase
     public function testMultipleInvalidFilesDocumentationValidation(): void
     {
         $config = new Repository();
-        $config->set("openapi_toolbox.directory.index", "openapi.yml");
-        $config->set("openapi_toolbox.directory.path", realpath(__DIR__ . "/mocks/multipleInvalidFilesDocumentation"));
-        $config->set("openapi_toolbox.directory.allow_multiple_files", true);
+        $config->set("openapi_toolbox.specification.index", "openapi.yml");
+        $config->set("openapi_toolbox.specification.path", realpath(__DIR__ . "/mocks/multipleInvalidFilesDocumentation"));
+        $config->set("openapi_toolbox.specification.allow_multiple_files", true);
         $config->set("openapi_toolbox.format", Format::Yml);
 
         $builder = new SpecificationBuilder($config);

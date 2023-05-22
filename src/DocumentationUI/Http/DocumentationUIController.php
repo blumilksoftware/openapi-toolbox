@@ -17,8 +17,8 @@ class DocumentationUIController
     public function index(Repository $config, UrlGeneratorContract $url, Factory $view): View
     {
         $route = $url->route(
-            name: $config->get("openapi_toolbox.routing.name") . ".file",
-            parameters: $config->get("openapi_toolbox.directory.index"),
+            name: $config->get("openapi_toolbox.ui.routing.name") . ".file",
+            parameters: $config->get("openapi_toolbox.specification.index"),
         );
 
         return $view->make("openapi_toolbox::elements")
@@ -28,7 +28,7 @@ class DocumentationUIController
 
     public function file(Repository $config, string $filePath): JsonResponse
     {
-        $filePath = $config->get("openapi_toolbox.directory.path") . "/" . $filePath;
+        $filePath = $config->get("openapi_toolbox.specification.path") . "/" . $filePath;
         $content = file_get_contents($filePath);
 
         /** @var Format $format */
