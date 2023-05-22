@@ -20,7 +20,7 @@ class SpecificationBuilder
      */
     public function build(): string
     {
-        return match ($this->config->get("openapi_toolbox.directory.allow_multiple_files")) {
+        return match ($this->config->get("openapi_toolbox.specification.allow_multiple_files")) {
             true => (new MultipleFilesDocumentationBuilder($this->config))->build(),
             default => (new SingleFileDocumentationBuilder($this->config))->build(),
         };
