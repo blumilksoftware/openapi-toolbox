@@ -9,6 +9,7 @@ $config = new Config(
     paths: new Paths(
         "codestyle.php",
         "config",
+        "routes",
         "src",
         "tests",
     ),

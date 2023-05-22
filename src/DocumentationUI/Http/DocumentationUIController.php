@@ -14,6 +14,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use KrzysztofRewak\OpenApiMerge\Writer\Exception\InvalidFileTypeException;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Yaml\Yaml;
 
 class DocumentationUIController
 {
@@ -59,9 +60,11 @@ class DocumentationUIController
         return $this->respondWithSpecification($content, $format);
     }
 
-    protected function respondWithSpecification(string $content, Format $format): Response {
+    protected function respondWithSpecification(string $content, Format $format): Response
+    {
         return match (true) {
             $format->isYml() => new Response($content, headers: ["Content-Type" => "application/x-yaml"]),
+            $format === Format::YmlToJson => new JsonResponse(Yaml::parse($content)),
             default => new JsonResponse($content),
         };
     }
