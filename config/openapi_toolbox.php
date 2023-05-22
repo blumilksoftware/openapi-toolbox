@@ -6,7 +6,7 @@ use Blumilk\OpenApiToolbox\Config\Format;
 use Blumilk\OpenApiToolbox\DocumentationUI\UIProvider;
 
 return [
-    "format" => Format::Yml,
+    "format" => Format::YmlToJson,
     "specification" => [
         "path" => resource_path("openapi"),
         "index" => "openapi.yml",

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Blumilk\OpenApiToolbox\OpenApiSpecification\DocumentationBuilders;
 
 use Blumilk\OpenApiToolbox\Config\ConfigHelper;
+use Blumilk\OpenApiToolbox\Config\Format;
 use Illuminate\Contracts\Config\Repository;
 use KrzysztofRewak\OpenApiMerge\FileHandling\File;
 use KrzysztofRewak\OpenApiMerge\OpenApiMerge;
@@ -45,6 +46,12 @@ class MultipleFilesDocumentationBuilder implements DocumentationBuilder
 
     protected function getDocumentationFilesPathPattern(): string
     {
-        return $this->configHelper->getPath("*." . $this->config->get("openapi_toolbox.format")->value);
+        $extension = match ($this->config->get("openapi_toolbox.format")) {
+            Format::Yaml => "yaml",
+            Format::Json => "json",
+            default => "yml",
+        };
+
+        return $this->configHelper->getPath("*.$extension");
     }
 }
