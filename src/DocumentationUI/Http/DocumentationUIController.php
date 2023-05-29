@@ -7,6 +7,7 @@ namespace Blumilk\OpenApiToolbox\DocumentationUI\Http;
 use Blumilk\OpenApiToolbox\Config\Format;
 use Blumilk\OpenApiToolbox\DocumentationUI\UIProvider;
 use Blumilk\OpenApiToolbox\OpenApiSpecification\SpecificationBuilder;
+use cebe\openapi\exceptions\UnresolvableReferenceException;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Routing\UrlGenerator as UrlGeneratorContract;
 use Illuminate\Contracts\View\Factory;
@@ -32,11 +33,16 @@ class DocumentationUIController
 
         return $view->make("openapi_toolbox::$template")
             ->with("title", $config->get("openapi_toolbox.ui.title"))
-            ->with("route", $route);
+            ->with("route", $route)
+            ->with("styleHref", $config->get("openapi_toolbox.ui.providers.$template.stylesheet.href"))
+            ->with("styleSri", $config->get("openapi_toolbox.ui.providers.$template.stylesheet.sri"))
+            ->with("scriptSrc", $config->get("openapi_toolbox.ui.providers.$template.script.src"))
+            ->with("scriptSri", $config->get("openapi_toolbox.ui.providers.$template.script.sri"));
     }
 
     /**
      * @throws InvalidFileTypeException
+     * @throws UnresolvableReferenceException
      */
     public function raw(Repository $config): Response
     {
