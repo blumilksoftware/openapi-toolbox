@@ -6,6 +6,7 @@ namespace Blumilk\OpenApiToolbox\OpenApiSpecification;
 
 use Blumilk\OpenApiToolbox\OpenApiSpecification\DocumentationBuilders\MultipleFilesDocumentationBuilder;
 use Blumilk\OpenApiToolbox\OpenApiSpecification\DocumentationBuilders\SingleFileDocumentationBuilder;
+use cebe\openapi\exceptions\UnresolvableReferenceException;
 use Illuminate\Contracts\Config\Repository;
 use KrzysztofRewak\OpenApiMerge\Writer\Exception\InvalidFileTypeException;
 
@@ -17,6 +18,7 @@ class SpecificationBuilder
 
     /**
      * @throws InvalidFileTypeException
+     * @throws UnresolvableReferenceException
      */
     public function build(): string
     {
