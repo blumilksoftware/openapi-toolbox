@@ -4,21 +4,23 @@ OpenAPI Toolbox is a handy package with all important documentation-related feat
 
 ### Installation
 
-Install package via Composer:
+Install package via Composer and publish configuration file:
 
 ```
 composer require blumilksoftware/openapi-toolbox
+php artisan vendor:publish
 ```
 
 If you need it only for internal development (no documentation serving) you can install it with a development flag:
 
 ```
 composer require blumilksoftware/openapi-toolbox --dev
+php artisan vendor:publish
 ```
 
 ### Configuration
 
-Configuration file should be published into your application after running `vendor:publish` command. It should look like below:
+Configuration file should be published into your application after running `php artisan vendor:publish` command. It should look like below:
 
 ```php
 return [
