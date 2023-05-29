@@ -6,6 +6,17 @@
         <meta name="description" content="{{ $title }}">
         <title>{{ $title }}</title>
         <link rel="stylesheet" href=" {{ $styleHref }}" @if($styleSri) integrity="{{ $styleSri }}" @endif crossorigin="anonymous">
+        <style>
+            elements-api {
+                display: block;
+                min-height: 100vh;
+            }
+
+            elements-api > div {
+                display: block;
+                height: 100vh !important;
+            }
+        </style>
     </head>
     <body>
         <elements-api apiDescriptionUrl="{{ $route }}" router="hash" layout="sidebar"></elements-api>
