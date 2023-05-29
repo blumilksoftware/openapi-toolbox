@@ -11,7 +11,7 @@ $router = app()->make(Registrar::class);
 /** @var Repository $config */
 $config = app()->make(Repository::class);
 
-if ($config->get("openapi_toolbox.ui.enabled")) {
+if ($config->get("openapi_toolbox.ui.enabled", default: false)) {
     $prefix = $config->get("openapi_toolbox.ui.routing.prefix");
     $name = $config->get("openapi_toolbox.ui.routing.name");
     $middlewares = $config->get("openapi_toolbox.ui.routing.middlewares", default: []);

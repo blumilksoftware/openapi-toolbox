@@ -20,7 +20,7 @@ class OpenApiCompatibilityTest extends TestCase
     {
         $config = new Repository();
         $config->set("openapi_toolbox.specification.index", "openapi.yml");
-        $config->set("openapi_toolbox.specification.path", realpath(__DIR__ . "/mocks/singleFileDocumentation"));
+        $config->set("openapi_toolbox.specification.path", realpath(__DIR__ . "/mocks/yml/singleFileDocumentation"));
         $config->set("openapi_toolbox.specification.allow_multiple_files", false);
         $config->set("openapi_toolbox.format", Format::Yml);
 
@@ -37,7 +37,7 @@ class OpenApiCompatibilityTest extends TestCase
     {
         $config = new Repository();
         $config->set("openapi_toolbox.specification.index", "openapi.yml");
-        $config->set("openapi_toolbox.specification.path", realpath(__DIR__ . "/mocks/multipleFilesDocumentation"));
+        $config->set("openapi_toolbox.specification.path", realpath(__DIR__ . "/mocks/yml/multipleFilesDocumentation"));
         $config->set("openapi_toolbox.specification.allow_multiple_files", false);
         $config->set("openapi_toolbox.format", Format::Yml);
 
@@ -55,7 +55,7 @@ class OpenApiCompatibilityTest extends TestCase
     {
         $config = new Repository();
         $config->set("openapi_toolbox.specification.index", "openapi.yml");
-        $config->set("openapi_toolbox.specification.path", realpath(__DIR__ . "/mocks/multipleFilesDocumentation"));
+        $config->set("openapi_toolbox.specification.path", realpath(__DIR__ . "/mocks/yml/multipleFilesDocumentation"));
         $config->set("openapi_toolbox.specification.allow_multiple_files", true);
         $config->set("openapi_toolbox.format", Format::Yml);
 
