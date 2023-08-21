@@ -6,6 +6,7 @@ namespace Blumilk\OpenApiToolbox\Tests;
 
 use Blumilk\OpenApiToolbox\Config\Format;
 use Blumilk\OpenApiToolbox\OpenApiSpecification\SpecificationBuilder;
+use cebe\openapi\exceptions\UnresolvableReferenceException;
 use Illuminate\Config\Repository;
 use KrzysztofRewak\OpenApiMerge\Writer\Exception\InvalidFileTypeException;
 use PHPUnit\Framework\Assert;
@@ -15,6 +16,7 @@ class OpenApiCompatibilityTest extends TestCase
 {
     /**
      * @throws InvalidFileTypeException
+     * @throws UnresolvableReferenceException
      */
     public function testSingleFileDocumentationBuild(): void
     {
@@ -32,6 +34,7 @@ class OpenApiCompatibilityTest extends TestCase
 
     /**
      * @throws InvalidFileTypeException
+     * @throws UnresolvableReferenceException
      */
     public function testMultipleFilesDocumentationWithSingleFileConfigurationBuild(): void
     {
@@ -50,6 +53,7 @@ class OpenApiCompatibilityTest extends TestCase
 
     /**
      * @throws InvalidFileTypeException
+     * @throws UnresolvableReferenceException
      */
     public function testMultipleFilesDocumentationBuild(): void
     {
