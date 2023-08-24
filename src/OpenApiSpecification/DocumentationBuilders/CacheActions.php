@@ -16,7 +16,7 @@ trait CacheActions
             }
         }
 
-        $content = $closure->call();
+        $content = $closure->call($this);
         $this->cacheDocumentation($content);
 
         return $content;
@@ -24,7 +24,7 @@ trait CacheActions
 
     protected function cachedDocumentationExists(): bool
     {
-        return file_exists($this->config->get("openapi_toolbox.cache.documentation_path"));
+        return file_exists($this->config->get("openapi_toolbox.cache.documentation_path")) && file_exists($this->config->get("openapi_toolbox.cache.checksum_path"));
     }
 
     protected function getCachedDocumentation(): string
@@ -34,7 +34,8 @@ trait CacheActions
 
     protected function cacheChecksumIsValid(): bool
     {
-        $md5checksum = file_get_contents($this->config->get("openapi_toolbox.cache.checksum_path"));
+        $path = $this->config->get("openapi_toolbox.cache.checksum_path");
+        $md5checksum = shell_exec("md5sum -c $path");
 
         return count(
             array_filter(
@@ -50,6 +51,6 @@ trait CacheActions
 
         $documentationPath = $this->config->get("openapi_toolbox.specification.path");
         $checksumPath = $this->config->get("openapi_toolbox.cache.checksum_path");
-        shell_exec("find $documentationPath -exec md5sum {} \; > $checksumPath");
+        shell_exec("find $documentationPath -type f -exec md5sum {} \; > $checksumPath");
     }
 }
