@@ -37,11 +37,11 @@ trait CacheActions
         $md5checksum = $process->getOutput();
 
         return count(
-                array_filter(
-                    explode("\n", $md5checksum),
-                    fn(string $line): bool => str_ends_with($line, ": FAILED"),
-                ),
-            ) === 0;
+            array_filter(
+                explode("\n", $md5checksum),
+                fn(string $line): bool => str_ends_with($line, ": FAILED"),
+            ),
+        ) === 0;
     }
 
     protected function getCachedDocumentation(): string
