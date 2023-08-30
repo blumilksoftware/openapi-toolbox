@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Blumilk\OpenApiToolbox\OpenApiSpecification\DocumentationBuilders;
 
 use Closure;
+use Symfony\Component\Process\Process;
 
 trait CacheActions
 {
@@ -27,22 +28,25 @@ trait CacheActions
         return file_exists($this->config->get("openapi_toolbox.cache.documentation_path")) && file_exists($this->config->get("openapi_toolbox.cache.checksum_path"));
     }
 
-    protected function getCachedDocumentation(): string
-    {
-        return file_get_contents($this->config->get("openapi_toolbox.cache.documentation_path"));
-    }
-
     protected function cacheChecksumIsValid(): bool
     {
         $path = $this->config->get("openapi_toolbox.cache.checksum_path");
-        $md5checksum = shell_exec("md5sum -c $path");
+        $process = new Process(["md5sum", "-c", $path]);
+        $process->run();
+
+        $md5checksum = $process->getOutput();
 
         return count(
-            array_filter(
-                explode("\n", $md5checksum),
-                fn(string $line): bool => str_ends_with($line, ": FAILED"),
-            ),
-        ) === 0;
+                array_filter(
+                    explode("\n", $md5checksum),
+                    fn(string $line): bool => str_ends_with($line, ": FAILED"),
+                ),
+            ) === 0;
+    }
+
+    protected function getCachedDocumentation(): string
+    {
+        return file_get_contents($this->config->get("openapi_toolbox.cache.documentation_path"));
     }
 
     protected function cacheDocumentation(string $content): void
@@ -51,6 +55,8 @@ trait CacheActions
 
         $documentationPath = $this->config->get("openapi_toolbox.specification.path");
         $checksumPath = $this->config->get("openapi_toolbox.cache.checksum_path");
-        shell_exec("find $documentationPath -type f -exec md5sum {} \; > $checksumPath");
+
+        $process = new Process(["find", $documentationPath, "-type", "f", "-exec", "md5sum", "{}", "\;", ">", $checksumPath]);
+        $process->run();
     }
 }
