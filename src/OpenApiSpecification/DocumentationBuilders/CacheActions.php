@@ -34,14 +34,7 @@ trait CacheActions
         $process = new Process(["md5sum", "-c", $path]);
         $process->run();
 
-        $md5checksum = $process->getOutput();
-
-        return count(
-            array_filter(
-                explode("\n", $md5checksum),
-                fn(string $line): bool => str_ends_with($line, ": FAILED"),
-            ),
-        ) === 0;
+        return $process->isSuccessful();
     }
 
     protected function getCachedDocumentation(): string
@@ -56,7 +49,7 @@ trait CacheActions
         $documentationPath = $this->config->get("openapi_toolbox.specification.path");
         $checksumPath = $this->config->get("openapi_toolbox.cache.checksum_path");
 
-        $process = new Process(["find", $documentationPath, "-type", "f", "-exec", "md5sum", "{}", "\;", ">", $checksumPath]);
+        $process = Process::fromShellCommandline("find $documentationPath -type f -exec md5sum {} \; > $checksumPath");
         $process->run();
     }
 }
