@@ -12,6 +12,11 @@ return [
         "index" => "openapi.yml",
         "allow_multiple_files" => false,
     ],
+    "cache" => [
+        "enabled" => false,
+        "documentation_path" => storage_path("framework/cache/openapi"),
+        "checksum_path" => storage_path("framework/cache/openapi.md5"),
+    ],
     "ui" => [
         "enabled" => false,
         "title" => "Documentation",

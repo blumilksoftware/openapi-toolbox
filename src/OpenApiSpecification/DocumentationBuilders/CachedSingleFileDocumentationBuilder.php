@@ -1,0 +1,15 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Blumilk\OpenApiToolbox\OpenApiSpecification\DocumentationBuilders;
+
+class CachedSingleFileDocumentationBuilder extends SingleFileDocumentationBuilder
+{
+    use CacheActions;
+
+    public function build(): string
+    {
+        return $this->cache(fn() => parent::build());
+    }
+}

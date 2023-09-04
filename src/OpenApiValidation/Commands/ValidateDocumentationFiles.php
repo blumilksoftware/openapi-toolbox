@@ -24,10 +24,12 @@ class ValidateDocumentationFiles extends Command
             $validator->validate();
         } catch (DocumentationFilesInvalidException $exception) {
             $this->error($exception->getMessage());
+
             return BaseCommand::FAILURE;
         }
 
         $this->info("OpenAPI specification is formatted properly.");
+
         return BaseCommand::SUCCESS;
     }
 }

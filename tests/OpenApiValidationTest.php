@@ -26,6 +26,7 @@ class OpenApiValidationTest extends TestCase
         $validator = new DocumentationFilesValidator($builder);
 
         $exceptions = [];
+
         try {
             $validator->validate();
         } catch (Throwable $e) {
@@ -47,6 +48,7 @@ class OpenApiValidationTest extends TestCase
         $validator = new DocumentationFilesValidator($builder);
 
         $exceptions = [];
+
         try {
             $validator->validate();
         } catch (Throwable $e) {
@@ -68,6 +70,7 @@ class OpenApiValidationTest extends TestCase
         $validator = new DocumentationFilesValidator($builder);
 
         $exceptions = [];
+
         try {
             $validator->validate();
         } catch (Throwable $e) {
@@ -92,6 +95,7 @@ class OpenApiValidationTest extends TestCase
         $validator = new DocumentationFilesValidator($builder);
 
         $exceptions = [];
+
         try {
             $validator->validate();
         } catch (Throwable $e) {

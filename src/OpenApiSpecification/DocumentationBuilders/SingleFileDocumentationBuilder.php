@@ -11,7 +11,8 @@ class SingleFileDocumentationBuilder implements DocumentationBuilder
 {
     protected ConfigHelper $configHelper;
 
-    public function __construct(Repository $config) {
+    public function __construct(Repository $config)
+    {
         $this->configHelper = new ConfigHelper($config);
     }
 

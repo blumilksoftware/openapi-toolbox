@@ -19,7 +19,7 @@
     "krzysztofrewak/openapi-merge": "^2.0"
   },
   "require-dev": {
-    "blumilksoftware/codestyle": "^2.2",
+    "blumilksoftware/codestyle": "^2.5",
     "phpunit/phpunit": "^10.1"
   },
   "autoload": {
