@@ -19,6 +19,7 @@ return [
     ],
     "ui" => [
         "enabled" => false,
+        "single_source" => false,
         "title" => "Documentation",
         "routing" => [
             "prefix" => "documentation",
