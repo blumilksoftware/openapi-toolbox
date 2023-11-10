@@ -21,10 +21,14 @@ class DocumentationUIController
 {
     public function index(Repository $config, UrlGeneratorContract $url, Factory $view): View
     {
-        $route = $url->route(
-            name: $config->get("openapi_toolbox.ui.routing.name") . ".file",
-            parameters: $config->get("openapi_toolbox.specification.index"),
-        );
+        $route = !$config->get("openapi_toolbox.ui.single_source", false)
+            ? $url->route(
+                name: $config->get("openapi_toolbox.ui.routing.name", "documentation") . ".file",
+                parameters: $config->get("openapi_toolbox.specification.index", "openapi.yml"),
+            )
+            : $url->route(
+                name: $config->get("openapi_toolbox.ui.routing.name", "documentation") . ".raw",
+            );
 
         $template = match ($config->get("openapi_toolbox.ui.provider")) {
             UIProvider::Swagger => "swagger",

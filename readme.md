@@ -41,6 +41,7 @@ return [
     ],
     "ui" => [
         "enabled" => false,
+        "single_source" => false,
         "title" => "Documentation",
         "routing" => [
             "prefix" => "documentation",
@@ -81,6 +82,8 @@ return [
 With configuration `openapi_toolbox.ui.enabled = true` a documentation UI will be built from configurable path and served on configurable route. Currently, the [Stoplight Elements](https://stoplight.io/open-source/elements) and [Swagger UI](https://swagger.io/tools/swagger-ui/) are only available UI base components configurable by `openapi_toolbox.ui.provider` setting.
 
 By default, it should be available under `GET /documentation`.
+
+By changing configuration variable `openapi_toolbox.ui.single_source` to `true`, application will serve already built single source file for GUI.
 
 #### OpenAPI documentation endpoint
 
