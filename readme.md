@@ -28,47 +28,52 @@ Configuration file should be published into your application after running `php 
 
 ```php
 return [
-    "format" => Format::YmlToJson,
-    "specification" => [
-        "path" => resource_path("openapi"),
-        "index" => "openapi.yml",
-        "allow_multiple_files" => false,
-    ],
-    "cache" => [
-        "enabled" => false,
-        "documentation_path" => storage_path("framework/cache/openapi"),
-        "checksum_path" => storage_path("framework/cache/openapi.md5"),
-    ],
-    "ui" => [
-        "enabled" => false,
-        "single_source" => false,
-        "title" => "Documentation",
-        "routing" => [
-            "prefix" => "documentation",
-            "name" => "documentation",
-            "middlewares" => [],
-        ],
-        "provider" => UIProvider::Elements,
-        "providers" => [
-            "elements" => [
-                "script" => [
-                    "src" => "https://unpkg.com/@stoplight/elements@7.7.16/web-components.min.js",
-                    "sri" => "sha384-bwBnouovwwSJc5fWe7VFNxRg+T2lPHhUcHIzdf7mFfqTZkYtM3T/ehzfEr8F02yY",
-                ],
-                "stylesheet" => [
-                    "href" => "https://unpkg.com/@stoplight/elements@7.7.16/styles.min.css",
-                    "sri" => "sha384-1lLf7J28IOR7k5RlItk6Y+G3hDgVB3y4RCgWNq6ZSwjYfvJXPtZAdW0uklsAZbGW",
-                ],
+    "default" => "openapi",
+    "documentations" => [
+        "openapi" => [
+            "format" => Format::YmlToJson,
+            "specification" => [
+                "path" => resource_path("openapi"),
+                "index" => "openapi.yml",
+                "allow_multiple_files" => false,
             ],
-            "swagger" => [
-                "script" => [
-                    "src" => "https://unpkg.com/swagger-ui-dist@4.5.0/swagger-ui-bundle.js",
-                    "sri" => "sha384-xy3YXp34ftsoHshRtcUFjOl/M22B5OEHD5S9AjtVzQokz+BxNff8vNW08msKmH46",
+            "cache" => [
+                "enabled" => false,
+                "documentation_path" => storage_path("framework/cache/openapi"),
+                "checksum_path" => storage_path("framework/cache/openapi.md5"),
+            ],
+            "ui" => [
+                "enabled" => false,
+                "single_source" => false,
+                "title" => "Documentation",
+                "routing" => [
+                    "prefix" => "documentation",
+                    "name" => "documentation",
+                    "middlewares" => [],
                 ],
-                "stylesheet" => [
-                    "href" => "https://unpkg.com/swagger-ui-dist@4.5.0/swagger-ui.css",
-                    "sri" => "sha384-pzdBB6iZwPIzBHgXle+9cgvKuMgtWNrBopXkjrWnKCi3m4uJsPPdLQ4IPMqRDirS",
-                ],
+                "provider" => UIProvider::Elements,
+            ],
+        ],
+    ],
+    "providers" => [
+        "elements" => [
+            "script" => [
+                "src" => "https://unpkg.com/@stoplight/elements@7.7.16/web-components.min.js",
+                "sri" => "sha384-bwBnouovwwSJc5fWe7VFNxRg+T2lPHhUcHIzdf7mFfqTZkYtM3T/ehzfEr8F02yY",
+            ],
+            "stylesheet" => [
+                "href" => "https://unpkg.com/@stoplight/elements@7.7.16/styles.min.css",
+                "sri" => "sha384-1lLf7J28IOR7k5RlItk6Y+G3hDgVB3y4RCgWNq6ZSwjYfvJXPtZAdW0uklsAZbGW",
+            ],
+        ],
+        "swagger" => [
+            "script" => [
+                "src" => "https://unpkg.com/swagger-ui-dist@4.5.0/swagger-ui-bundle.js",
+                "sri" => "sha384-xy3YXp34ftsoHshRtcUFjOl/M22B5OEHD5S9AjtVzQokz+BxNff8vNW08msKmH46",
+            ],
+            "stylesheet" => [
+                "href" => "https://unpkg.com/swagger-ui-dist@4.5.0/swagger-ui.css",
+                "sri" => "sha384-pzdBB6iZwPIzBHgXle+9cgvKuMgtWNrBopXkjrWnKCi3m4uJsPPdLQ4IPMqRDirS",
             ],
         ],
     ],
@@ -77,13 +82,47 @@ return [
 
 ### Features
 
+#### Multiple documentations
+
+You can create more than one documentation by adding element to `openapi_toolbox.documentation` array. 
+
+```php
+
+return {
+    "openapi" => [
+        "format" => Format::YmlToJson,
+        "specification" => [
+            "path" => resource_path("openapi"),
+            "index" => "openapi.yml",
+            "allow_multiple_files" => false,
+        ],
+        "cache" => [
+            "enabled" => false,
+            "documentation_path" => storage_path("framework/cache/openapi"),
+            "checksum_path" => storage_path("framework/cache/openapi.md5"),
+        ],
+        "ui" => [
+            "enabled" => false,
+            "single_source" => false,
+            "title" => "Documentation",
+            "routing" => [
+                "prefix" => "documentation",
+                "name" => "documentation",
+                "middlewares" => [],
+            ],
+            "provider" => UIProvider::Elements,
+        ],
+    ],
+}
+```
+
 #### OpenAPI documentation UI
 
-With configuration `openapi_toolbox.ui.enabled = true` a documentation UI will be built from configurable path and served on configurable route. Currently, the [Stoplight Elements](https://stoplight.io/open-source/elements) and [Swagger UI](https://swagger.io/tools/swagger-ui/) are only available UI base components configurable by `openapi_toolbox.ui.provider` setting.
+With configuration `ui.enabled = true` a documentation UI will be built from configurable path and served on configurable route. Currently, the [Stoplight Elements](https://stoplight.io/open-source/elements) and [Swagger UI](https://swagger.io/tools/swagger-ui/) are only available UI base components configurable by `ui.provider` setting.
 
-By default, it should be available under `GET /documentation`.
+By default, it should be one documentation available under `GET /documentation`.
 
-By changing configuration variable `openapi_toolbox.ui.single_source` to `true`, application will serve already built single source file for GUI.
+By changing configuration variable `ui.single_source` to `true`, application will serve already built single source file for GUI.
 
 #### OpenAPI documentation endpoint
 
@@ -94,7 +133,7 @@ Serving a documentation itself can be tricky, especially if specification is bui
 OpenAPI specification files will be built accordingly to configuration and validated on demand by running an Artisan command:
 
 ```
-php artisan openapi:validate
+php artisan openapi:validate {documentation}
 ```
 
 Good example of usage would be adding this command to CI pipeline for opened pull requests.
@@ -107,6 +146,8 @@ Based on [kirschbaum-development/laravel-openapi-validator](https://github.com/k
 use \Blumilk\OpenApiToolbox\OpenApiCompatibility\OpenApiCompatibility;
 ```
 
+By default, the documentation will be used from `openapi_toolbox.default` option. You should consider to override methods `getDocumentationName()` or `getDocumentationConfig` to select documentation you want to test. 
+
 Every time any HTTP call to application would be performed during tests, additional validation will be performed and structure of requests and responses will be checked against OpenAPI specification. For special cases (e.g. testing invalid requests) this validation can be disabled by using `$this->withoutRequestValidation()` and `$this->withoutResponseValidation()`.  
 
-With configuration `openapi_toolbox.cache.enabled = true` internal builders will use cached OpenAPI specifications. 
+With configuration `cache.enabled = true` internal builders will use cached OpenAPI specifications. 

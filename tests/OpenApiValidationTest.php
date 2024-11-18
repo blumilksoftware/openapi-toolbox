@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Blumilk\OpenApiToolbox\Tests;
 
+use Blumilk\OpenApiToolbox\Config\DocumentationConfig;
 use Blumilk\OpenApiToolbox\Config\Format;
 use Blumilk\OpenApiToolbox\OpenApiSpecification\SpecificationBuilder;
 use Blumilk\OpenApiToolbox\OpenApiValidation\DocumentationFilesValidator;
-use Illuminate\Config\Repository;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\TestCase;
 use Throwable;
@@ -16,11 +16,14 @@ class OpenApiValidationTest extends TestCase
 {
     public function testMultipleFilesYamlDocumentationValidation(): void
     {
-        $config = new Repository();
-        $config->set("openapi_toolbox.specification.index", "openapi.yml");
-        $config->set("openapi_toolbox.specification.path", realpath(__DIR__ . "/mocks/yml/multipleFilesDocumentation"));
-        $config->set("openapi_toolbox.specification.allow_multiple_files", true);
-        $config->set("openapi_toolbox.format", Format::Yml);
+        $config = new DocumentationConfig([
+            "specification" => [
+                "index" => "openapi.yml",
+                "path" => realpath(__DIR__ . "/mocks/yml/multipleFilesDocumentation"),
+                "allow_multiple_files" => true,
+            ],
+            "format" => Format::Yml,
+        ]);
 
         $builder = new SpecificationBuilder($config);
         $validator = new DocumentationFilesValidator($builder);
@@ -38,11 +41,14 @@ class OpenApiValidationTest extends TestCase
 
     public function testMultipleInvalidFilesYamlDocumentationValidation(): void
     {
-        $config = new Repository();
-        $config->set("openapi_toolbox.specification.index", "openapi.yml");
-        $config->set("openapi_toolbox.specification.path", realpath(__DIR__ . "/mocks/yml/multipleInvalidFilesDocumentation"));
-        $config->set("openapi_toolbox.specification.allow_multiple_files", true);
-        $config->set("openapi_toolbox.format", Format::Yml);
+        $config = new DocumentationConfig([
+            "specification" => [
+                "index" => "openapi.yml",
+                "path" => realpath(__DIR__ . "/mocks/yml/multipleInvalidFilesDocumentation"),
+                "allow_multiple_files" => true,
+            ],
+            "format" => Format::Yml,
+        ]);
 
         $builder = new SpecificationBuilder($config);
         $validator = new DocumentationFilesValidator($builder);
@@ -60,11 +66,14 @@ class OpenApiValidationTest extends TestCase
 
     public function testMultipleFilesJsonDocumentationValidation(): void
     {
-        $config = new Repository();
-        $config->set("openapi_toolbox.specification.index", "openapi.json");
-        $config->set("openapi_toolbox.specification.path", realpath(__DIR__ . "/mocks/json/multipleFilesDocumentation"));
-        $config->set("openapi_toolbox.specification.allow_multiple_files", true);
-        $config->set("openapi_toolbox.format", Format::Json);
+        $config = new DocumentationConfig([
+            "specification" => [
+                "index" => "openapi.json",
+                "path" => realpath(__DIR__ . "/mocks/json/multipleFilesDocumentation"),
+                "allow_multiple_files" => true,
+            ],
+            "format" => Format::Json,
+        ]);
 
         $builder = new SpecificationBuilder($config);
         $validator = new DocumentationFilesValidator($builder);
@@ -85,11 +94,14 @@ class OpenApiValidationTest extends TestCase
      */
     public function testMultipleInvalidFilesJsonDocumentationValidation(): void
     {
-        $config = new Repository();
-        $config->set("openapi_toolbox.specification.index", "openapi.json");
-        $config->set("openapi_toolbox.specification.path", realpath(__DIR__ . "/mocks/json/multipleInvalidFilesDocumentation"));
-        $config->set("openapi_toolbox.specification.allow_multiple_files", true);
-        $config->set("openapi_toolbox.format", Format::Json);
+        $config = new DocumentationConfig([
+            "specification" => [
+                "index" => "openapi.json",
+                "path" => realpath(__DIR__ . "/mocks/json/multipleInvalidFilesDocumentation"),
+                "allow_multiple_files" => true,
+            ],
+            "format" => Format::Json,
+        ]);
 
         $builder = new SpecificationBuilder($config);
         $validator = new DocumentationFilesValidator($builder);
