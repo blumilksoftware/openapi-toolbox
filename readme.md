@@ -89,25 +89,25 @@ You can create more than one documentation by adding element to `openapi_toolbox
 ```php
 
 return {
-    "openapi" => [
+    "test" => [
         "format" => Format::YmlToJson,
         "specification" => [
-            "path" => resource_path("openapi"),
+            "path" => resource_path("documentation/test"),
             "index" => "openapi.yml",
             "allow_multiple_files" => false,
         ],
         "cache" => [
             "enabled" => false,
-            "documentation_path" => storage_path("framework/cache/openapi"),
-            "checksum_path" => storage_path("framework/cache/openapi.md5"),
+            "documentation_path" => storage_path("framework/cache/test"),
+            "checksum_path" => storage_path("framework/cache/test.md5"),
         ],
         "ui" => [
             "enabled" => false,
             "single_source" => false,
-            "title" => "Documentation",
+            "title" => "Test documentation",
             "routing" => [
-                "prefix" => "documentation",
-                "name" => "documentation",
+                "prefix" => "documentation/test",
+                "name" => "documentation.test",
                 "middlewares" => [],
             ],
             "provider" => UIProvider::Elements,
