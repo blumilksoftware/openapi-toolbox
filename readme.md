@@ -84,7 +84,7 @@ return [
 
 #### Multiple documentations
 
-You can create more than one documentation by adding element to `openapi_toolbox.documentation` array. 
+You can create more than one documentation by adding element to `openapi_toolbox.documentations` array. 
 
 ```php
 
@@ -146,7 +146,7 @@ Based on [kirschbaum-development/laravel-openapi-validator](https://github.com/k
 use \Blumilk\OpenApiToolbox\OpenApiCompatibility\OpenApiCompatibility;
 ```
 
-By default, the documentation will be used from `openapi_toolbox.default` option. You should consider to override methods `getDocumentationName()` or `getDocumentationConfig` to select documentation you want to test. 
+By default, the documentation will be used from `openapi_toolbox.default` option. You should consider to override `getDocumentationName()` or `getDocumentationConfig()` method to select documentation you want to test. 
 
 Every time any HTTP call to application would be performed during tests, additional validation will be performed and structure of requests and responses will be checked against OpenAPI specification. For special cases (e.g. testing invalid requests) this validation can be disabled by using `$this->withoutRequestValidation()` and `$this->withoutResponseValidation()`.  
 
