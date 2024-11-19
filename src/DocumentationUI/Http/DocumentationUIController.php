@@ -77,7 +77,7 @@ class DocumentationUIController
     /**
      * @throws DocumentationNotFound
      */
-    public function file(string $documentation, string $filePath, Repository $config): Response
+    public function file(string $filePath, string $documentation, Repository $config): Response
     {
         $data = $config->get("openapi_toolbox.documentations.$documentation");
 
