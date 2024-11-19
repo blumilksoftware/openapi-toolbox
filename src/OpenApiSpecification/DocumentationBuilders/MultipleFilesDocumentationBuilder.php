@@ -23,11 +23,9 @@ class MultipleFilesDocumentationBuilder implements DocumentationBuilder
      */
     public function build(): string
     {
-        $index = $this->config->getIndex();
-
         $merger = new OpenApiMerge(new FileReader());
         $mergedResult = $merger->mergeFiles(
-            new File($index),
+            new File($this->config->getIndexPath()),
             ...array_map(
                 static fn(string $file): File => new File($file),
                 glob($this->getDocumentationFilesPathPattern()),

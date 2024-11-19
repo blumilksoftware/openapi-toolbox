@@ -14,6 +14,6 @@ class SingleFileDocumentationBuilder implements DocumentationBuilder
 
     public function build(): string
     {
-        return file_get_contents($this->config->getIndex());
+        return file_get_contents($this->config->getIndexPath());
     }
 }

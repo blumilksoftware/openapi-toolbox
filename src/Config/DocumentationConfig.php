@@ -22,7 +22,12 @@ class DocumentationConfig
 
     public function getIndex(): string
     {
-        return $this->getPath(Arr::get($this->config, "specification.index"));
+        return Arr::get($this->config, "specification.index");
+    }
+
+    public function getIndexPath(): string
+    {
+        return $this->getPath($this->getIndex());
     }
 
     public function isUiEnabled(): bool
