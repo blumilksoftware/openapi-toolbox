@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Blumilk\OpenApiToolbox\OpenApiValidation\Commands;
 
+use Blumilk\OpenApiToolbox\Config\DocumentationConfig;
 use Blumilk\OpenApiToolbox\DocumentationUI\Exceptions\DocumentationNotFound;
 use Blumilk\OpenApiToolbox\OpenApiSpecification\SpecificationBuilder;
 use Blumilk\OpenApiToolbox\OpenApiValidation\DocumentationFilesInvalidException;
@@ -33,7 +34,7 @@ class ValidateDocumentationFiles extends Command
         }
 
         try {
-            $validator = new DocumentationFilesValidator(new SpecificationBuilder($data));
+            $validator = new DocumentationFilesValidator(new SpecificationBuilder(new DocumentationConfig($data)));
 
             $validator->validate();
         } catch (DocumentationFilesInvalidException $exception) {
@@ -42,7 +43,7 @@ class ValidateDocumentationFiles extends Command
             return BaseCommand::FAILURE;
         }
 
-        $this->info("OpenAPI specification is formatted properly.");
+        $this->info("OpenAPI specification named $documentation is formatted properly.");
 
         return BaseCommand::SUCCESS;
     }

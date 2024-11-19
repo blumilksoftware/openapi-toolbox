@@ -72,7 +72,7 @@ class DocumentationConfig
 
     public function getCachePath(): string
     {
-        return Arr::get($this->config, "cache.path");
+        return Arr::get($this->config, "cache.documentation_path");
     }
 
     public function getCacheChecksumPath(): string

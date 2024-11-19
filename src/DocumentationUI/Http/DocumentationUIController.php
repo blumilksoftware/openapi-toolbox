@@ -67,11 +67,11 @@ class DocumentationUIController
             throw new DocumentationNotFound($documentation);
         }
 
-        $configHelper = new DocumentationConfig($data);
-        $builder = new SpecificationBuilder($configHelper);
+        $documentationConfig = new DocumentationConfig($data);
+        $builder = new SpecificationBuilder($documentationConfig);
         $content = $builder->build();
 
-        return $this->respondWithSpecification($content, $configHelper->getFormat());
+        return $this->respondWithSpecification($content, $documentationConfig->getFormat());
     }
 
     /**
@@ -85,12 +85,12 @@ class DocumentationUIController
             throw new DocumentationNotFound($documentation);
         }
 
-        $configHelper = new DocumentationConfig($config->get("openapi_toolbox.documentations.$documentation"));
+        $documentationConfig = new DocumentationConfig($data);
 
-        $filePath = $configHelper->getPath($filePath);
+        $filePath = $documentationConfig->getPath($filePath);
         $content = file_get_contents($filePath);
 
-        return $this->respondWithSpecification($content, $configHelper->getFormat());
+        return $this->respondWithSpecification($content, $documentationConfig->getFormat());
     }
 
     protected function respondWithSpecification(string $content, Format $format): Response

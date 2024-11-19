@@ -54,7 +54,7 @@ trait OpenApiCompatibility
 
         $name = $this->getDocumentationName();
 
-        return new DocumentationConfig($config->get("openapi_toolbox.$name"));
+        return new DocumentationConfig($config->get("openapi_toolbox.documentations.$name"));
     }
 
     /**

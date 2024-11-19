@@ -14,7 +14,7 @@ $config = app()->make(Repository::class);
 
 $documentations = $config->get("openapi_toolbox.documentations", []);
 
-foreach ($documentations as $documentation) {
+foreach ($documentations as $key => $documentation) {
     $documentationConfig = new DocumentationConfig($documentation);
 
     if (!$documentationConfig->isUiEnabled()) {
@@ -27,14 +27,17 @@ foreach ($documentations as $documentation) {
 
     $router->get("/$prefix/raw", [DocumentationUIController::class, "raw"])
         ->middleware($middlewares)
-        ->name("$name.raw");
+        ->name("$name.raw")
+        ->defaults("documentation", $key);
 
     $router->get("/$prefix/{filePath}", [DocumentationUIController::class, "file"])
         ->middleware($middlewares)
         ->where("filePath", ".*")
-        ->name("$name.file");
+        ->name("$name.file")
+        ->defaults("documentation", $key);
 
     $router->get("/$prefix", [DocumentationUIController::class, "index"])
         ->middleware($middlewares)
-        ->name("$name");
+        ->name("$name")
+        ->defaults("documentation", $key);
 }
