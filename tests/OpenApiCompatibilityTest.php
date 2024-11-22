@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace Blumilk\OpenApiToolbox\Tests;
 
+use Blumilk\OpenApiToolbox\Config\DocumentationConfig;
 use Blumilk\OpenApiToolbox\Config\Format;
 use Blumilk\OpenApiToolbox\OpenApiSpecification\SpecificationBuilder;
-use cebe\openapi\exceptions\UnresolvableReferenceException;
-use Illuminate\Config\Repository;
 use KrzysztofRewak\OpenApiMerge\Writer\Exception\InvalidFileTypeException;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\TestCase;
@@ -16,15 +15,17 @@ class OpenApiCompatibilityTest extends TestCase
 {
     /**
      * @throws InvalidFileTypeException
-     * @throws UnresolvableReferenceException
      */
     public function testSingleFileDocumentationBuild(): void
     {
-        $config = new Repository();
-        $config->set("openapi_toolbox.specification.index", "openapi.yml");
-        $config->set("openapi_toolbox.specification.path", realpath(__DIR__ . "/mocks/yml/singleFileDocumentation"));
-        $config->set("openapi_toolbox.specification.allow_multiple_files", false);
-        $config->set("openapi_toolbox.format", Format::Yml);
+        $config = new DocumentationConfig([
+            "specification" => [
+                "index" => "openapi.yml",
+                "path" => realpath(__DIR__ . "/mocks/yml/singleFileDocumentation"),
+                "allow_multiple_files" => false,
+            ],
+            "format" => Format::Yml,
+        ]);
 
         $builder = new SpecificationBuilder($config);
         $result = $builder->build();
@@ -34,15 +35,17 @@ class OpenApiCompatibilityTest extends TestCase
 
     /**
      * @throws InvalidFileTypeException
-     * @throws UnresolvableReferenceException
      */
     public function testMultipleFilesDocumentationWithSingleFileConfigurationBuild(): void
     {
-        $config = new Repository();
-        $config->set("openapi_toolbox.specification.index", "openapi.yml");
-        $config->set("openapi_toolbox.specification.path", realpath(__DIR__ . "/mocks/yml/multipleFilesDocumentation"));
-        $config->set("openapi_toolbox.specification.allow_multiple_files", false);
-        $config->set("openapi_toolbox.format", Format::Yml);
+        $config = new DocumentationConfig([
+            "specification" => [
+                "index" => "openapi.yml",
+                "path" => realpath(__DIR__ . "/mocks/yml/multipleFilesDocumentation"),
+                "allow_multiple_files" => false,
+            ],
+            "format" => Format::Yml,
+        ]);
 
         $builder = new SpecificationBuilder($config);
         $result = $builder->build();
@@ -53,15 +56,17 @@ class OpenApiCompatibilityTest extends TestCase
 
     /**
      * @throws InvalidFileTypeException
-     * @throws UnresolvableReferenceException
      */
     public function testMultipleFilesDocumentationBuild(): void
     {
-        $config = new Repository();
-        $config->set("openapi_toolbox.specification.index", "openapi.yml");
-        $config->set("openapi_toolbox.specification.path", realpath(__DIR__ . "/mocks/yml/multipleFilesDocumentation"));
-        $config->set("openapi_toolbox.specification.allow_multiple_files", true);
-        $config->set("openapi_toolbox.format", Format::Yml);
+        $config = new DocumentationConfig([
+            "specification" => [
+                "index" => "openapi.yml",
+                "path" => realpath(__DIR__ . "/mocks/yml/multipleFilesDocumentation"),
+                "allow_multiple_files" => true,
+            ],
+            "format" => Format::Yml,
+        ]);
 
         $builder = new SpecificationBuilder($config);
         $result = $builder->build();

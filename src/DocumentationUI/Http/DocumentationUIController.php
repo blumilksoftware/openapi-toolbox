@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace Blumilk\OpenApiToolbox\DocumentationUI\Http;
 
+use Blumilk\OpenApiToolbox\Config\DocumentationConfig;
 use Blumilk\OpenApiToolbox\Config\Format;
+use Blumilk\OpenApiToolbox\DocumentationUI\Exceptions\DocumentationNotFound;
 use Blumilk\OpenApiToolbox\DocumentationUI\UIProvider;
 use Blumilk\OpenApiToolbox\OpenApiSpecification\SpecificationBuilder;
-use cebe\openapi\exceptions\UnresolvableReferenceException;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Routing\UrlGenerator as UrlGeneratorContract;
 use Illuminate\Contracts\View\Factory;
@@ -19,55 +20,77 @@ use Symfony\Component\Yaml\Yaml;
 
 class DocumentationUIController
 {
-    public function index(Repository $config, UrlGeneratorContract $url, Factory $view): View
+    /**
+     * @throws DocumentationNotFound
+     */
+    public function index(string $documentation, Repository $config, UrlGeneratorContract $url, Factory $view): View
     {
-        $route = !$config->get("openapi_toolbox.ui.single_source", false)
+        $data = $config->get("openapi_toolbox.documentations.$documentation");
+
+        if (empty($data)) {
+            throw new DocumentationNotFound($documentation);
+        }
+
+        $documentationConfig = new DocumentationConfig($data);
+
+        $route = !$documentationConfig->isUiSingleSource()
             ? $url->route(
-                name: $config->get("openapi_toolbox.ui.routing.name", "documentation") . ".file",
-                parameters: $config->get("openapi_toolbox.specification.index", "openapi.yml"),
+                name: $documentationConfig->getRouteName() . ".file",
+                parameters: $documentationConfig->getIndex(),
             )
             : $url->route(
-                name: $config->get("openapi_toolbox.ui.routing.name", "documentation") . ".raw",
+                name: $documentationConfig->getRouteName() . ".raw",
             );
 
-        $template = match ($config->get("openapi_toolbox.ui.provider")) {
+        $template = match ($documentationConfig->getUiProvider()) {
             UIProvider::Swagger => "swagger",
             default => "elements",
         };
 
         return $view->make("openapi_toolbox::$template")
-            ->with("title", $config->get("openapi_toolbox.ui.title"))
+            ->with("title", $documentationConfig->getUiTitle())
             ->with("route", $route)
-            ->with("styleHref", $config->get("openapi_toolbox.ui.providers.$template.stylesheet.href"))
-            ->with("styleSri", $config->get("openapi_toolbox.ui.providers.$template.stylesheet.sri"))
-            ->with("scriptSrc", $config->get("openapi_toolbox.ui.providers.$template.script.src"))
-            ->with("scriptSri", $config->get("openapi_toolbox.ui.providers.$template.script.sri"));
+            ->with("styleHref", $config->get("openapi_toolbox.providers.$template.stylesheet.href"))
+            ->with("styleSri", $config->get("openapi_toolbox.providers.$template.stylesheet.sri"))
+            ->with("scriptSrc", $config->get("openapi_toolbox.providers.$template.script.src"))
+            ->with("scriptSri", $config->get("openapi_toolbox.providers.$template.script.sri"));
     }
 
     /**
-     * @throws InvalidFileTypeException
-     * @throws UnresolvableReferenceException
+     * @throws InvalidFileTypeException|DocumentationNotFound
      */
-    public function raw(Repository $config): Response
+    public function raw(string $documentation, Repository $config): Response
     {
-        $builder = new SpecificationBuilder($config);
+        $data = $config->get("openapi_toolbox.documentations.$documentation");
+
+        if (empty($data)) {
+            throw new DocumentationNotFound($documentation);
+        }
+
+        $documentationConfig = new DocumentationConfig($data);
+        $builder = new SpecificationBuilder($documentationConfig);
         $content = $builder->build();
 
-        /** @var Format $format */
-        $format = $config->get("openapi_toolbox.format");
-
-        return $this->respondWithSpecification($content, $format);
+        return $this->respondWithSpecification($content, $documentationConfig->getFormat());
     }
 
-    public function file(Repository $config, string $filePath): Response
+    /**
+     * @throws DocumentationNotFound
+     */
+    public function file(string $filePath, string $documentation, Repository $config): Response
     {
-        $filePath = $config->get("openapi_toolbox.specification.path") . "/" . $filePath;
+        $data = $config->get("openapi_toolbox.documentations.$documentation");
+
+        if (empty($data)) {
+            throw new DocumentationNotFound($documentation);
+        }
+
+        $documentationConfig = new DocumentationConfig($data);
+
+        $filePath = $documentationConfig->getPath($filePath);
         $content = file_get_contents($filePath);
 
-        /** @var Format $format */
-        $format = $config->get("openapi_toolbox.format");
-
-        return $this->respondWithSpecification($content, $format);
+        return $this->respondWithSpecification($content, $documentationConfig->getFormat());
     }
 
     protected function respondWithSpecification(string $content, Format $format): Response

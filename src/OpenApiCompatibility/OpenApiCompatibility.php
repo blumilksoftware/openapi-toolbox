@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Blumilk\OpenApiToolbox\OpenApiCompatibility;
 
+use Blumilk\OpenApiToolbox\Config\DocumentationConfig;
 use Blumilk\OpenApiToolbox\OpenApiSpecification\SpecificationBuilder;
 use Illuminate\Contracts\Config\Repository;
 use Kirschbaum\OpenApiValidator\Exceptions\UnknownParserForFileTypeException;
@@ -38,14 +39,30 @@ trait OpenApiCompatibility
         return $this->openApiValidatorBuilder;
     }
 
+    public function getDocumentationName(): string
+    {
+        /** @var Repository $config */
+        $config = app("config");
+
+        return $config->get("openapi_toolbox.default");
+    }
+
+    public function getDocumentationConfig(): DocumentationConfig
+    {
+        /** @var Repository $config */
+        $config = app("config");
+
+        $name = $this->getDocumentationName();
+
+        return new DocumentationConfig($config->get("openapi_toolbox.documentations.$name"));
+    }
+
     /**
      * @throws InvalidFileTypeException
      */
     protected function getOpenApiSpec(): string
     {
-        /** @var Repository $config */
-        $config = app("config");
-        $builder = new SpecificationBuilder($config);
+        $builder = new SpecificationBuilder($this->getDocumentationConfig());
 
         return $builder->build();
     }
