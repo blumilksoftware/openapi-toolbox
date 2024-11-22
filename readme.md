@@ -37,10 +37,10 @@ return [
                 "index" => "openapi.yml",
                 "allow_multiple_files" => false,
             ],
-            "cache" => [
+             "cache" => [
                 "enabled" => false,
-                "documentation_path" => storage_path("framework/cache/openapi"),
-                "checksum_path" => storage_path("framework/cache/openapi.md5"),
+                "driver" => "file",
+                "key" => "openapi",
             ],
             "ui" => [
                 "enabled" => false,
@@ -98,8 +98,8 @@ return {
         ],
         "cache" => [
             "enabled" => false,
-            "documentation_path" => storage_path("framework/cache/test"),
-            "checksum_path" => storage_path("framework/cache/test.md5"),
+            "driver" => "file",
+            "key" => "openapi",
         ],
         "ui" => [
             "enabled" => false,
