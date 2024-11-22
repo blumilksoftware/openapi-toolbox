@@ -17,8 +17,8 @@ return [
             ],
             "cache" => [
                 "enabled" => false,
-                "documentation_path" => storage_path("framework/cache/openapi"),
-                "checksum_path" => storage_path("framework/cache/openapi.md5"),
+                "driver" => "default",
+                "key" => "openapi",
             ],
             "ui" => [
                 "enabled" => false,
