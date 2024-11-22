@@ -37,10 +37,10 @@ return [
                 "index" => "openapi.yml",
                 "allow_multiple_files" => false,
             ],
-            "cache" => [
+             "cache" => [
                 "enabled" => false,
-                "documentation_path" => storage_path("framework/cache/openapi"),
-                "checksum_path" => storage_path("framework/cache/openapi.md5"),
+                "driver" => "default",
+                "key" => "openapi",
             ],
             "ui" => [
                 "enabled" => false,
@@ -98,8 +98,8 @@ return {
         ],
         "cache" => [
             "enabled" => false,
-            "documentation_path" => storage_path("framework/cache/test"),
-            "checksum_path" => storage_path("framework/cache/test.md5"),
+            "driver" => "default",
+            "key" => "openapi",
         ],
         "ui" => [
             "enabled" => false,
@@ -150,4 +150,5 @@ By default, the documentation will be used from `openapi_toolbox.default` option
 
 Every time any HTTP call to application would be performed during tests, additional validation will be performed and structure of requests and responses will be checked against OpenAPI specification. For special cases (e.g. testing invalid requests) this validation can be disabled by using `$this->withoutRequestValidation()` and `$this->withoutResponseValidation()`.  
 
-With configuration `cache.enabled = true` internal builders will use cached OpenAPI specifications. 
+With configuration `cache.enabled = true` internal builders will use cached OpenAPI specifications.
+You can change the cache store by setting the `cache.driver` option, for example: `cache.driver = redis`. Make sure to use one of the cache drivers available in your Laravel application.
