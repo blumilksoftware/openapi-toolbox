@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Blumilk\OpenApiToolbox\OpenApiSpecification\DocumentationBuilders;
 
 use Closure;
+use Illuminate\Contracts\Cache\Repository;
+use Illuminate\Support\Facades\Cache;
 use Symfony\Component\Process\Process;
 
 trait CacheActions
@@ -25,31 +27,48 @@ trait CacheActions
 
     protected function cachedDocumentationExists(): bool
     {
-        return file_exists($this->config->getCachePath()) && file_exists($this->config->getCacheChecksumPath());
+        return $this->getCacheDriver()->has($this->config->getCacheKey())
+            && $this->getCacheDriver()->has($this->config->getCacheChecksumKey());
     }
 
     protected function cacheChecksumIsValid(): bool
     {
-        $path = $this->config->getCacheChecksumPath();
-        $process = new Process(["md5sum", "-c", $path]);
-        $process->run();
+        $cachedChecksum = $this->getCachedChecksum();
+        $checksum = $this->getDocumentationChecksum();
 
-        return $process->isSuccessful();
+        return $cachedChecksum === $checksum;
     }
 
     protected function getCachedDocumentation(): string
     {
-        return file_get_contents($this->config->getCachePath());
+        return $this->getCacheDriver()->get($this->config->getCacheKey());
+    }
+
+    protected function getCachedChecksum(): string
+    {
+        return $this->getCacheDriver()->get($this->config->getCacheChecksumKey());
     }
 
     protected function cacheDocumentation(string $content): void
     {
-        file_put_contents($this->config->getCachePath(), $content);
+        $this->getCacheDriver()->put($this->config->getCacheKey(), $content);
+        $this->getCacheDriver()->put($this->config->getCacheChecksumKey(), $this->getDocumentationChecksum());
+    }
 
+    protected function getDocumentationChecksum(): string
+    {
         $documentationPath = $this->config->getPath();
-        $checksumPath = $this->config->getCacheChecksumPath();
 
-        $process = Process::fromShellCommandline("find $documentationPath -type f -exec md5sum {} \; > $checksumPath");
+        $process = Process::fromShellCommandline("find $documentationPath -type f -exec md5sum {} \;");
         $process->run();
+
+        return $process->getOutput();
+    }
+
+    protected function getCacheDriver(): Repository
+    {
+        $store = $this->config->getCacheDriver();
+
+        return $store === "default" ? Cache::driver() : Cache::driver($store);
     }
 }

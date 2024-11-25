@@ -75,14 +75,19 @@ class DocumentationConfig
         return Arr::get($this->config, "cache.enabled", false);
     }
 
-    public function getCachePath(): string
+    public function getCacheKey(): string
     {
-        return Arr::get($this->config, "cache.documentation_path");
+        return Arr::get($this->config, "cache.key");
     }
 
-    public function getCacheChecksumPath(): string
+    public function getCacheChecksumKey(): string
     {
-        return Arr::get($this->config, "cache.checksum_path");
+        return Arr::get($this->config, "cache.key") . ".md5";
+    }
+
+    public function getCacheDriver(): string
+    {
+        return Arr::get($this->config, "cache.driver");
     }
 
     public function getFormat(): Format
