@@ -10,8 +10,8 @@ use Illuminate\Contracts\Config\Repository;
 use Kirschbaum\OpenApiValidator\Exceptions\UnknownParserForFileTypeException;
 use Kirschbaum\OpenApiValidator\Exceptions\UnknownSpecFileTypeException;
 use Kirschbaum\OpenApiValidator\ValidatesOpenApiSpec;
-use KrzysztofRewak\OpenApiMerge\Writer\Exception\InvalidFileTypeException;
 use League\OpenAPIValidation\PSR7\ValidatorBuilder;
+use Mthole\OpenApiMerge\Writer\Exception\InvalidFileTypeException;
 
 trait OpenApiCompatibility
 {

@@ -9,7 +9,7 @@ use Blumilk\OpenApiToolbox\OpenApiSpecification\DocumentationBuilders\CachedMult
 use Blumilk\OpenApiToolbox\OpenApiSpecification\DocumentationBuilders\CachedSingleFileDocumentationBuilder;
 use Blumilk\OpenApiToolbox\OpenApiSpecification\DocumentationBuilders\MultipleFilesDocumentationBuilder;
 use Blumilk\OpenApiToolbox\OpenApiSpecification\DocumentationBuilders\SingleFileDocumentationBuilder;
-use KrzysztofRewak\OpenApiMerge\Writer\Exception\InvalidFileTypeException;
+use Mthole\OpenApiMerge\Writer\Exception\InvalidFileTypeException;
 
 class SpecificationBuilder
 {

@@ -1,0 +1,60 @@
+openapi: 3.1.0
+info:
+  title: application
+  version: 0.0.1
+  description: "API Documentation"
+  contact:
+    name: Blumilk development team
+    email: office@blumilk.pl
+    url: blumilk.pl
+servers:
+  - url: https://application-backend.blumilk.localhost/api/
+    description: Development server
+tags:
+  - name: Info
+    description: Routes accessible for all users
+paths:
+  "/login":
+    get:
+      tags:
+        - Authentication
+      summary: Authentication endpoint
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                  examples:
+                    - user@example.com
+                password:
+                  type: string
+                  examples:
+                    - password!123+X%
+              additionalProperties: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                    example: true
+        '401':
+          description: Not Authorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: boolean
+                    example: false
