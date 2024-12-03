@@ -27,6 +27,6 @@ class OpenApiCompatibilityTest extends TestCase
 
     public function testDocumentationCompatibility(): void
     {
-        $this->postJson("login");
+        $this->postJson("login", ["password" => "password"]);
     }
 }

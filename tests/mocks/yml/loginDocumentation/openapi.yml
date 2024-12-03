@@ -15,7 +15,7 @@ tags:
     description: Routes accessible for all users
 paths:
   "/login":
-    get:
+    post:
       tags:
         - Authentication
       summary: Authentication endpoint
