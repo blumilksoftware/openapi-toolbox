@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Blumilk\OpenApiToolbox\OpenApiCompatibility;
 
 use Blumilk\OpenApiToolbox\Config\DocumentationConfig;
+use Blumilk\OpenApiToolbox\Config\Format;
 use Blumilk\OpenApiToolbox\OpenApiSpecification\SpecificationBuilder;
 use Illuminate\Contracts\Config\Repository;
 use Kirschbaum\OpenApiValidator\Exceptions\UnknownParserForFileTypeException;
@@ -60,8 +61,8 @@ trait OpenApiCompatibility
     protected function getSpecFileType(): string
     {
         return match (true) {
-            $this->getDocumentationConfig()->getFormat()->isYml() => "yaml",
-            default => "json",
+            $this->getDocumentationConfig()->getFormat() === Format::Json => "json",
+            default => "yaml",
         };
     }
 
