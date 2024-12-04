@@ -8,7 +8,7 @@ info:
     email: office@blumilk.pl
     url: blumilk.pl
 servers:
-  - url: https://application-backend.blumilk.localhost/api/
+  - url: https://application-backend.blumilk.localhost/
     description: Development server
 tags:
   - name: Info
@@ -48,6 +48,7 @@ paths:
                   status:
                     type: boolean
                     example: true
+                additionalProperties: false
         '401':
           description: Not Authorized
           content:
@@ -58,3 +59,4 @@ paths:
                   status:
                     type: boolean
                     example: false
+                additionalProperties: false

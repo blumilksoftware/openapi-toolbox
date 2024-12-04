@@ -27,6 +27,12 @@ class OpenApiCompatibilityTest extends TestCase
 
     public function testDocumentationCompatibility(): void
     {
-        $this->postJson("login", ["password" => "password"]);
+        $response = $this->postJson("login", ["email" => "example@example.com", "password" => "password"]);
+        $response->assertOk();
+    }
+
+    protected function defineRoutes($router): void
+    {
+        $router->post("login", fn() => ["status" => true]);
     }
 }

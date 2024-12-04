@@ -39,11 +39,6 @@ trait OpenApiCompatibility
         return $this->openApiValidatorBuilder;
     }
 
-    protected function getSpecFileType(): string
-    {
-        return strtolower($this->getDocumentationConfig()->getFormat()->name);
-    }
-
     public function getDocumentationConfig(): DocumentationConfig
     {
         /** @var Repository $config */
@@ -60,6 +55,11 @@ trait OpenApiCompatibility
         $config = app("config");
 
         return $config->get("openapi_toolbox.default");
+    }
+
+    protected function getSpecFileType(): string
+    {
+        return strtolower($this->getDocumentationConfig()->getFormat()->name);
     }
 
     /**
