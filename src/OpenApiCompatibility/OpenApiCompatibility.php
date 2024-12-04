@@ -59,7 +59,10 @@ trait OpenApiCompatibility
 
     protected function getSpecFileType(): string
     {
-        return strtolower($this->getDocumentationConfig()->getFormat()->name);
+        return match (true) {
+            $this->getDocumentationConfig()->getFormat()->isYml() => "yaml",
+            default => "json",
+        };
     }
 
     /**
