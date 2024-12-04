@@ -5,13 +5,14 @@ declare(strict_types=1);
 namespace Blumilk\OpenApiToolbox\OpenApiCompatibility;
 
 use Blumilk\OpenApiToolbox\Config\DocumentationConfig;
+use Blumilk\OpenApiToolbox\Config\Format;
 use Blumilk\OpenApiToolbox\OpenApiSpecification\SpecificationBuilder;
 use Illuminate\Contracts\Config\Repository;
 use Kirschbaum\OpenApiValidator\Exceptions\UnknownParserForFileTypeException;
 use Kirschbaum\OpenApiValidator\Exceptions\UnknownSpecFileTypeException;
 use Kirschbaum\OpenApiValidator\ValidatesOpenApiSpec;
-use KrzysztofRewak\OpenApiMerge\Writer\Exception\InvalidFileTypeException;
 use League\OpenAPIValidation\PSR7\ValidatorBuilder;
+use Mthole\OpenApiMerge\Writer\Exception\InvalidFileTypeException;
 
 trait OpenApiCompatibility
 {
@@ -39,14 +40,6 @@ trait OpenApiCompatibility
         return $this->openApiValidatorBuilder;
     }
 
-    public function getDocumentationName(): string
-    {
-        /** @var Repository $config */
-        $config = app("config");
-
-        return $config->get("openapi_toolbox.default");
-    }
-
     public function getDocumentationConfig(): DocumentationConfig
     {
         /** @var Repository $config */
@@ -55,6 +48,22 @@ trait OpenApiCompatibility
         $name = $this->getDocumentationName();
 
         return new DocumentationConfig($config->get("openapi_toolbox.documentations.$name"));
+    }
+
+    public function getDocumentationName(): string
+    {
+        /** @var Repository $config */
+        $config = app("config");
+
+        return $config->get("openapi_toolbox.default");
+    }
+
+    protected function getSpecFileType(): string
+    {
+        return match (true) {
+            $this->getDocumentationConfig()->getFormat() === Format::Json => "json",
+            default => "yaml",
+        };
     }
 
     /**

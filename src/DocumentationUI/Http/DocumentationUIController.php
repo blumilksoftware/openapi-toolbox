@@ -14,7 +14,7 @@ use Illuminate\Contracts\Routing\UrlGenerator as UrlGeneratorContract;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
-use KrzysztofRewak\OpenApiMerge\Writer\Exception\InvalidFileTypeException;
+use Mthole\OpenApiMerge\Writer\Exception\InvalidFileTypeException;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Yaml\Yaml;
 

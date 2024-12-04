@@ -6,7 +6,7 @@ namespace Blumilk\OpenApiToolbox\OpenApiValidation;
 
 use Blumilk\OpenApiToolbox\OpenApiSpecification\SpecificationBuilder;
 use cebe\openapi\exceptions\UnresolvableReferenceException;
-use KrzysztofRewak\OpenApiMerge\Writer\Exception\InvalidFileTypeException;
+use Mthole\OpenApiMerge\Writer\Exception\InvalidFileTypeException;
 use Symfony\Component\Yaml\Exception\ParseException;
 use TypeError;
 

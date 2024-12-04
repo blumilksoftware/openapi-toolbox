@@ -6,11 +6,14 @@ namespace Blumilk\OpenApiToolbox\OpenApiSpecification\DocumentationBuilders;
 
 use Blumilk\OpenApiToolbox\Config\DocumentationConfig;
 use Blumilk\OpenApiToolbox\Config\Format;
-use KrzysztofRewak\OpenApiMerge\FileHandling\File;
-use KrzysztofRewak\OpenApiMerge\OpenApiMerge;
-use KrzysztofRewak\OpenApiMerge\Reader\FileReader;
-use KrzysztofRewak\OpenApiMerge\Writer\DefinitionWriter;
-use KrzysztofRewak\OpenApiMerge\Writer\Exception\InvalidFileTypeException;
+use Mthole\OpenApiMerge\FileHandling\File;
+use Mthole\OpenApiMerge\Merge\ComponentsMerger;
+use Mthole\OpenApiMerge\Merge\ReferenceNormalizer;
+use Mthole\OpenApiMerge\Merge\SecurityPathMerger;
+use Mthole\OpenApiMerge\OpenApiMerge;
+use Mthole\OpenApiMerge\Reader\FileReader;
+use Mthole\OpenApiMerge\Writer\DefinitionWriter;
+use Mthole\OpenApiMerge\Writer\Exception\InvalidFileTypeException;
 
 class MultipleFilesDocumentationBuilder implements DocumentationBuilder
 {
@@ -23,10 +26,18 @@ class MultipleFilesDocumentationBuilder implements DocumentationBuilder
      */
     public function build(): string
     {
-        $merger = new OpenApiMerge(new FileReader());
+        $merger = new OpenApiMerge(
+            new FileReader(),
+            [
+                new ComponentsMerger(),
+                new SecurityPathMerger(),
+            ],
+            new ReferenceNormalizer(),
+        );
+
         $mergedResult = $merger->mergeFiles(
             new File($this->config->getIndexPath()),
-            ...array_map(
+            array_map(
                 static fn(string $file): File => new File($file),
                 glob($this->getDocumentationFilesPathPattern()),
             ),

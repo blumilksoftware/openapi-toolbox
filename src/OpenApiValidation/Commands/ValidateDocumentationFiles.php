@@ -11,7 +11,7 @@ use Blumilk\OpenApiToolbox\OpenApiValidation\DocumentationFilesInvalidException;
 use Blumilk\OpenApiToolbox\OpenApiValidation\DocumentationFilesValidator;
 use Illuminate\Config\Repository;
 use Illuminate\Console\Command;
-use KrzysztofRewak\OpenApiMerge\Writer\Exception\InvalidFileTypeException;
+use Mthole\OpenApiMerge\Writer\Exception\InvalidFileTypeException;
 use Symfony\Component\Console\Command\Command as BaseCommand;
 
 class ValidateDocumentationFiles extends Command

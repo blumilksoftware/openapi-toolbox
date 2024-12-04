@@ -15,11 +15,13 @@
     "illuminate/console": "^11.0",
     "illuminate/http": "^11.0",
     "illuminate/support": "^11.0",
+    "illuminate/testing": "^11.34",
     "kirschbaum-development/laravel-openapi-validator": "^1.0",
-    "krzysztofrewak/openapi-merge": "^2.1"
+    "marcelthole/openapi-merge": "^2.3"
   },
   "require-dev": {
     "blumilksoftware/codestyle": "^4.0",
+    "orchestra/testbench": "^9.6",
     "phpunit/phpunit": "^11.1"
   },
   "autoload": {
