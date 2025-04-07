@@ -10,7 +10,7 @@
   "homepage": "https://github.com/blumilksoftware/openapi-toolbox",
   "license": "MIT",
   "require": {
-    "php": "^8.4",
+    "php": "^8.3",
     "illuminate/config": "^12.7.2",
     "illuminate/console": "^12.7.2",
     "illuminate/http": "^12.7.2",
