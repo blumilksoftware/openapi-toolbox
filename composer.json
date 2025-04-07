@@ -10,19 +10,19 @@
   "homepage": "https://github.com/blumilksoftware/openapi-toolbox",
   "license": "MIT",
   "require": {
-    "php": "^8.3",
-    "illuminate/config": "^11.0",
-    "illuminate/console": "^11.0",
-    "illuminate/http": "^11.0",
-    "illuminate/support": "^11.0",
-    "illuminate/testing": "^11.34",
-    "kirschbaum-development/laravel-openapi-validator": "^1.0",
-    "marcelthole/openapi-merge": "^2.3"
+    "php": "^8.4",
+    "illuminate/config": "^12.7.2",
+    "illuminate/console": "^12.7.2",
+    "illuminate/http": "^12.7.2",
+    "illuminate/support": "^12.7.2",
+    "illuminate/testing": "^12.7.2",
+    "kirschbaum-development/laravel-openapi-validator": "^1.1.0",
+    "marcelthole/openapi-merge": "^2.4.0"
   },
   "require-dev": {
-    "blumilksoftware/codestyle": "^4.0",
-    "orchestra/testbench": "^9.6",
-    "phpunit/phpunit": "^11.1"
+    "blumilksoftware/codestyle": "^4.1.0",
+    "orchestra/testbench": "^10.2.0",
+    "phpunit/phpunit": "^12.1.0"
   },
   "autoload": {
     "psr-4": {
@@ -35,8 +35,8 @@
     }
   },
   "scripts": {
-    "cs": "./vendor/bin/php-cs-fixer fix --dry-run --diff --config codestyle.php",
-    "csf": "./vendor/bin/php-cs-fixer fix --diff --config codestyle.php",
+    "cs": "PHP_CS_FIXER_IGNORE_ENV=on ./vendor/bin/php-cs-fixer fix --dry-run --diff --config codestyle.php",
+    "csf": "PHP_CS_FIXER_IGNORE_ENV=on ./vendor/bin/php-cs-fixer fix --diff --config codestyle.php",
     "test": "./vendor/bin/phpunit tests --colors"
   },
   "config": {
