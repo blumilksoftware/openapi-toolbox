@@ -23,7 +23,7 @@ foreach ($documentations as $key => $documentation) {
 
     $prefix = $documentationConfig->getRoutePrefix();
     $name = $documentationConfig->getRouteName();
-    $middlewares = $documentationConfig->getRouteMddlewares();
+    $middlewares = $documentationConfig->getRouteMiddlewares();
 
     $router->get("/$prefix/raw", [DocumentationUIController::class, "raw"])
         ->middleware($middlewares)
