@@ -19,7 +19,7 @@ class OpenApiToolboxServiceProvider extends ServiceProvider
 
         $this->publishes([
             __DIR__ . "/../config/openapi_toolbox.php" => config_path("openapi_toolbox.php"),
-        ]);
+        ], "openapi-toolbox-config");
 
         $this->loadRoutesFrom(__DIR__ . "/../routes/routes.php");
         $this->loadViewsFrom(__DIR__ . "/../resources/views", "openapi_toolbox");

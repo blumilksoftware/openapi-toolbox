@@ -60,7 +60,7 @@ class DocumentationConfig
         return Arr::get($this->config, "ui.routing.name");
     }
 
-    public function getRouteMddlewares(): array
+    public function getRouteMiddlewares(): array
     {
         return Arr::get($this->config, "ui.routing.middlewares", []);
     }

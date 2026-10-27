@@ -7,6 +7,7 @@ namespace Blumilk\OpenApiToolbox\Tests;
 use Blumilk\OpenApiToolbox\Config\DocumentationConfig;
 use Blumilk\OpenApiToolbox\Config\Format;
 use Blumilk\OpenApiToolbox\OpenApiSpecification\SpecificationBuilder;
+use Blumilk\OpenApiToolbox\OpenApiValidation\DocumentationFilesInvalidException;
 use Blumilk\OpenApiToolbox\OpenApiValidation\DocumentationFilesValidator;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\TestCase;
@@ -62,6 +63,7 @@ class OpenApiValidationTest extends TestCase
         }
 
         Assert::assertCount(1, $exceptions);
+        Assert::assertInstanceOf(DocumentationFilesInvalidException::class, $exceptions[0]);
     }
 
     public function testMultipleFilesJsonDocumentationValidation(): void
@@ -115,5 +117,6 @@ class OpenApiValidationTest extends TestCase
         }
 
         Assert::assertCount(1, $exceptions);
+        Assert::assertInstanceOf(DocumentationFilesInvalidException::class, $exceptions[0]);
     }
 }

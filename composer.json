@@ -10,19 +10,19 @@
   "homepage": "https://github.com/blumilksoftware/openapi-toolbox",
   "license": "MIT",
   "require": {
-    "php": "^8.3",
-    "illuminate/config": "^12.7.2",
-    "illuminate/console": "^12.7.2",
-    "illuminate/http": "^12.7.2",
-    "illuminate/support": "^12.7.2",
-    "illuminate/testing": "^12.7.2",
-    "kirschbaum-development/laravel-openapi-validator": "^1.1.0",
-    "marcelthole/openapi-merge": "^2.4.0"
+    "php": "^8.5",
+    "illuminate/config": "^13.0",
+    "illuminate/console": "^13.0",
+    "illuminate/http": "^13.0",
+    "illuminate/support": "^13.0",
+    "illuminate/testing": "^13.0",
+    "kirschbaum-development/laravel-openapi-validator": "^2.0.2",
+    "marcelthole/openapi-merge": "^2.6.0"
   },
   "require-dev": {
-    "blumilksoftware/codestyle": "^4.1.0",
-    "orchestra/testbench": "^10.2.0",
-    "phpunit/phpunit": "^12.1.0"
+    "blumilksoftware/codestyle": "^5.1.1",
+    "orchestra/testbench": "^11.3.0",
+    "phpunit/phpunit": "^13.4.0"
   },
   "autoload": {
     "psr-4": {

@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Blumilk\OpenApiToolbox\OpenApiValidation;
 
 use Blumilk\OpenApiToolbox\OpenApiSpecification\SpecificationBuilder;
-use cebe\openapi\exceptions\UnresolvableReferenceException;
 use Mthole\OpenApiMerge\Writer\Exception\InvalidFileTypeException;
+use openapiphp\openapi\exceptions\UnresolvableReferenceException;
 use Symfony\Component\Yaml\Exception\ParseException;
 use TypeError;
 
