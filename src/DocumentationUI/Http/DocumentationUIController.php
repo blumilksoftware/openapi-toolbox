@@ -16,6 +16,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Mthole\OpenApiMerge\Writer\Exception\InvalidFileTypeException;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Yaml\Yaml;
 
 class DocumentationUIController
@@ -87,7 +88,13 @@ class DocumentationUIController
 
         $documentationConfig = new DocumentationConfig($data);
 
-        $filePath = $documentationConfig->getPath($filePath);
+        $basePath = realpath($documentationConfig->getPath());
+        $filePath = realpath($documentationConfig->getPath($filePath));
+
+        if ($basePath === false || $filePath === false || !str_starts_with($filePath, $basePath . DIRECTORY_SEPARATOR) || !is_file($filePath)) {
+            throw new NotFoundHttpException();
+        }
+
         $content = file_get_contents($filePath);
 
         return $this->respondWithSpecification($content, $documentationConfig->getFormat());
